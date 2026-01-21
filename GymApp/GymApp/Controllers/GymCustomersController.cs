@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GymApp.Data;
 using GymApp.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace GymApp.Controllers
 {
@@ -19,43 +21,59 @@ namespace GymApp.Controllers
             _context = context;
         }
 
+        [Authorize]
         // GET: GymCustomers
         public async Task<IActionResult> Index()
         {
-            return View(await _context.GymCustomer.ToListAsync());
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var userCustomerData = await _context.GymCustomer.Where(h => userId == userId).ToListAsync();
+
+            return View(userCustomerData);
         }
 
+        [Authorize]
         // GET: GymCustomers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var gymCustomer = await _context.GymCustomer
-                .FirstOrDefaultAsync(m => m.GymCustomerId == id);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var gymCustomer = await _context.GymCustomer.FirstOrDefaultAsync(h => h.GymCustomerId == id && h.UserID == userId);
+
             if (gymCustomer == null)
-            {
-                return NotFound();
-            }
+                return Unauthorized();
 
             return View(gymCustomer);
         }
 
+        [Authorize]
         // GET: GymCustomers/Create
         public IActionResult Create()
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             return View();
         }
 
+        [Authorize]
         // POST: GymCustomers/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("GymCustomerId,UserID,Name,Age,Email,Phone,Address")] GymCustomer gymCustomer)
+        public async Task<IActionResult> Create([Bind("GymCustomerId,Name,Age,Email,Phone,Address")] GymCustomer gymCustomer)
         {
+            var userID = User.FindFirstValue(ClaimTypes.NameIdentifier); // Claims
+
+            if (userID == null)
+            {
+                return NotFound();
+            }
+
+            gymCustomer.UserID = userID;
+
+            ModelState.Remove("userID");
+
             if (ModelState.IsValid)
             {
                 _context.Add(gymCustomer);
@@ -65,29 +83,41 @@ namespace GymApp.Controllers
             return View(gymCustomer);
         }
 
+        [Authorize]
         // GET: GymCustomers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var gymCustomer = await _context.GymCustomer.FindAsync(id);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var gymCustomer = await _context.GymCustomer.FirstOrDefaultAsync(h => h.GymCustomerId == id && h.UserID == userId);
+
             if (gymCustomer == null)
-            {
-                return NotFound();
-            }
+                return Unauthorized();
+
             return View(gymCustomer);
         }
 
+        [Authorize]
         // POST: GymCustomers/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("GymCustomerId,UserID,Name,Age,Email,Phone,Address")] GymCustomer gymCustomer)
+        public async Task<IActionResult> Edit(int id, [Bind("GymCustomerId,Name,Age,Email,Phone,Address")] GymCustomer gymCustomer)
         {
+
+            var userID = User.FindFirstValue(ClaimTypes.NameIdentifier); // Claims
+
+            if (userID == null)
+            {
+                return NotFound();
+            }
+
+            gymCustomer.UserID = userID;
+
+            ModelState.Remove("userID");
+
             if (id != gymCustomer.GymCustomerId)
             {
                 return NotFound();
@@ -116,24 +146,18 @@ namespace GymApp.Controllers
             return View(gymCustomer);
         }
 
+        [Authorize]
         // GET: GymCustomers/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var gymCustomer = await _context.GymCustomer
-                .FirstOrDefaultAsync(m => m.GymCustomerId == id);
-            if (gymCustomer == null)
-            {
-                return NotFound();
-            }
+            var userCustomerData = await _context.GymCustomer.Where(h => userId == userId).ToListAsync();
 
-            return View(gymCustomer);
+            return View(userCustomerData);
         }
 
+        [Authorize]
         // POST: GymCustomers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

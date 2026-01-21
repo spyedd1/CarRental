@@ -4,7 +4,7 @@
     {
         public int GymCustomerId { get; set; }
 
-        public int UserID { get; set; } // Foreign key for linking to a user, we need userID because userId is necessary for every model which stires personal data to a user. For example a workout plan.
+        public string UserID { get; set; } // Foreign key for linking to a user, we need userID because userId is necessary for every model which stires personal data to a user. For example a workout plan.
 
         public string Name { get; set; }
 

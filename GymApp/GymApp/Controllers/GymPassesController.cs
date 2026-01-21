@@ -69,8 +69,7 @@ namespace GymApp.Controllers
 
             gymPass.GymCustomer = gymCustomer;
 
-            ModelState.Remove("GymCustomer");
-
+            ModelState.Remove("GymCustomerId");
             if (ModelState.IsValid)
             {
                 _context.Add(gymPass);
@@ -105,6 +104,19 @@ namespace GymApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("GymPassId,GymCustomerId,CustomerName,ExpiryDate")] GymPass gymPass)
         {
+
+
+            var gymCustomer = await _context.GymCustomer.FindAsync(gymPass.GymCustomerId);
+
+            if (gymCustomer == null)
+            {
+                return NotFound();
+            }
+
+            gymPass.GymCustomer = gymCustomer;
+
+            ModelState.Remove("GymCustomerId");
+
             if (id != gymPass.GymPassId)
             {
                 return NotFound();
