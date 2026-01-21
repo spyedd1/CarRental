@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "\\\\dom.sandwell.ac.uk\\Student\\HomeEven\\715142\\GitHub\\CarRental\\GymApp\\GymApp\\GymApp.csproj": {}
+    "D:\\Documents\\GitHub\\CarRental\\GymApp\\GymApp\\GymApp.csproj": {}
   },
   "projects": {
-    "\\\\dom.sandwell.ac.uk\\Student\\HomeEven\\715142\\GitHub\\CarRental\\GymApp\\GymApp\\GymApp.csproj": {
+    "D:\\Documents\\GitHub\\CarRental\\GymApp\\GymApp\\GymApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "\\\\dom.sandwell.ac.uk\\Student\\HomeEven\\715142\\GitHub\\CarRental\\GymApp\\GymApp\\GymApp.csproj",
+        "projectUniqueName": "D:\\Documents\\GitHub\\CarRental\\GymApp\\GymApp\\GymApp.csproj",
         "projectName": "GymApp",
-        "projectPath": "\\\\dom.sandwell.ac.uk\\Student\\HomeEven\\715142\\GitHub\\CarRental\\GymApp\\GymApp\\GymApp.csproj",
-        "packagesPath": "C:\\Users\\715142\\.nuget\\packages\\",
-        "outputPath": "\\\\dom.sandwell.ac.uk\\Student\\HomeEven\\715142\\GitHub\\CarRental\\GymApp\\GymApp\\obj\\",
+        "projectPath": "D:\\Documents\\GitHub\\CarRental\\GymApp\\GymApp\\GymApp.csproj",
+        "packagesPath": "C:\\Users\\Jamie\\.nuget\\packages\\",
+        "outputPath": "D:\\Documents\\GitHub\\CarRental\\GymApp\\GymApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\715142\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Jamie\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -44,7 +45,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.100"
+        "SdkAnalysisLevel": "10.0.100"
       },
       "frameworks": {
         "net9.0": {
@@ -98,12 +99,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[9.0.0, 9.0.0]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -112,7 +107,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files (x86)\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

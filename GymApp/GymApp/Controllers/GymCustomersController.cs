@@ -27,7 +27,7 @@ namespace GymApp.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var userCustomerData = await _context.GymCustomer.Where(h => userId == userId).ToListAsync();
+            var userCustomerData = await _context.GymCustomer.Where(h => h.UserID == userId).ToListAsync();
 
             return View(userCustomerData);
         }
@@ -152,9 +152,12 @@ namespace GymApp.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var userCustomerData = await _context.GymCustomer.Where(h => userId == userId).ToListAsync();
+            var gymCustomer = await _context.GymCustomer.FirstOrDefaultAsync(h => h.GymCustomerId == id && h.UserID == userId);
 
-            return View(userCustomerData);
+            if (gymCustomer == null)
+                return Unauthorized();
+
+            return View(gymCustomer);
         }
 
         [Authorize]
